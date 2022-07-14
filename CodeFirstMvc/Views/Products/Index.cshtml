@@ -1,0 +1,82 @@
+﻿@model PagedList.IPagedList<CodeFirstMvc.Models.Product>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Get, new { id = "form1" }))
+{
+    <div id='Paging' style="text-align: center">
+        @*Dorpdownlist generation code*@
+        Page Size: @Html.DropDownList("pageSize")
+        <br />(Nos. of Records To Display)
+        <br />
+        <br />
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        of @Model.PageCount
+
+
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = ViewBag.psize }))
+    </div>
+}
+<table class="table">
+    <tr>
+        <th>
+            ProductId
+        </th>
+        <th>
+            ProductName
+        </th>
+        <th>
+            CategoryId
+        </th>
+        <th>
+            CategoryName
+        </th>
+
+
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ProductId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script type="text/javascript">
+    $(function () {
+        $("#pageSize").change(function () {
+            alert("success");
+            $("#form1").submit();
+        });
+    });
+</script>
