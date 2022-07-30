@@ -22,9 +22,10 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm("Remove", "Category", FormMethod.Post))
+    {
         @Html.AntiForgeryToken()
-
+        @Html.HiddenFor(Model => Model.Id)
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
             @Html.ActionLink("Back to List", "Index")

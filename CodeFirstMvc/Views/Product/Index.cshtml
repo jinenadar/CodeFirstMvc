@@ -10,72 +10,72 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+@using (Html.BeginForm("Index", "Product", FormMethod.Get, new { id = "form1" }))
 
-@using (Html.BeginForm("Index", "Home", FormMethod.Get, new { id = "form1" }))
 {
     <div id='Paging' style="text-align: center">
         @*Dorpdownlist generation code*@
         Page Size: @Html.DropDownList("pageSize")
+
         <br />(Nos. of Records To Display)
         <br />
         <br />
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
         of @Model.PageCount
 
-
         @Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = ViewBag.psize }))
     </div>
 }
 <table class="table">
     <tr>
-        <th>
-            ProductId
-        </th>
-        <th>
-            ProductName
-        </th>
-        <th>
-            CategoryId
-        </th>
-        <th>
-            CategoryName
-        </th>
 
-
-
-        <th></th>
+        <th>
+            Product Id
+        </th>
+        <th>
+            Product Name
+        </th>
+        <th>
+            Category Id
+        </th>
+        <th>
+            Category Name
+        </th>
+        <th>Action</th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.CategoryName)
-            </td>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.ProductId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ProductName)
+    </td>
 
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ProductId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
-            </td>
-        </tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Category.Id)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.Category.CategoryName)
+    </td>
+
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }) |
+        @Html.ActionLink("Details", "Details", new { id = item.ProductId }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
+    </td>
+</tr>
     }
 
 </table>
-
 <script type="text/javascript">
+
     $(function () {
         $("#pageSize").change(function () {
-            alert("success");
+            alert("Submit");
             $("#form1").submit();
         });
     });

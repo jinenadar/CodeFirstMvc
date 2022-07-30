@@ -30,8 +30,10 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm("Remove","Product",FormMethod.Post))
+    {
         @Html.AntiForgeryToken()
+        @Html.HiddenFor(Model => Model.ProductId)
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
